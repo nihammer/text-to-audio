@@ -1,0 +1,8 @@
+f5-tts==1.1.16
+edge-tts>=6.1.9
+piper-tts>=1.4.0
+pydub==0.25.1
+soundfile==0.13.1
+tqdm==4.67.3
+pyyaml==6.0.3
+numpy==2.4.2

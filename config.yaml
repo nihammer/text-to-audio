@@ -1,0 +1,57 @@
+reference:
+  audio_src: "reference/voice_preview_tham_giong_nu_mien_bac.mp3"
+  wav_path: "reference/voice.wav"
+  start_ms: 1800      # skip first N ms (e.g. to skip YouTube subscribe intro)
+
+tts:
+  engine: "piper"   # "f5" | "edge" | "piper"
+
+  # --- F5-TTS settings (used when engine: "f5") ---
+  device: "mps"       # mps | cpu
+  nfe_step: 16        # 16 = good quality, 2x faster than 32; use 32 for best quality
+  speed: 1.9
+  # Vietnamese fine-tuned checkpoint (toandev/F5-TTS-Vietnamese)
+  # Set to empty string "" to use the default F5TTS_v1_Base model
+  ckpt_file: "models/vi_f5tts/model_latest.safetensors"
+  vocab_file: "models/vi_f5tts/vocab.txt"
+
+  # --- Edge-TTS settings (used when engine: "edge") ---
+  edge:
+    voice: "vi-VN-HoaiMyNeural"   # female | "vi-VN-NamMinhNeural" = male
+    rate: "+20%"                   # speed: "+10%" faster, "-10%" slower
+    volume: "+0%"
+
+  # --- Piper TTS settings (used when engine: "piper") ---
+  # Download models from: https://huggingface.co/rhasspy/piper-voices
+  #   Vietnamese: vi/vi_VN/vais1000/medium/vi_VN-vais1000-medium.onnx          (+ .json)
+  #   English:    en/en_US/lessac/medium/en_US-lessac-medium.onnx              (+ .json)
+  #   Japanese:   không có model chính thức; EN model được dùng làm fallback
+  piper:
+    model_path: "models/piper/vi/vi_VN/vais1000/medium/vi_VN-vais1000-medium.onnx"
+    speaker_id:           # null for single-speaker models; integer for multi-speaker
+    length_scale: 1.0     # speed: lower = faster (0.5 = 2x speed), higher = slower
+    noise_scale: 0.667    # prosody variation (default 0.667)
+    noise_w_scale: 0.8    # phoneme duration variation (default 0.8)
+    foreign_phoneme: false # IPA injection fallback khi không có foreign model
+    foreign_lang: "ja"   # IPA fallback: "ja" = romaji→IPA, "en" = en-us espeak
+    # --- multi-model mode: để "" để vô hiệu ---
+    foreign_model_path_en: "" # "models/piper/en/en_US/lessac/medium/en_US-lessac-medium.onnx"
+    foreign_model_path_ja: ""   # không có JA model; tên Nhật tự động dùng EN model làm fallback
+    pronunciation_dict:   # override IPA theo từng từ (hoạt động ở mọi mode)
+      # "Thor": "tɔː"
+      # "Takagi": "takaɡi"
+
+audio:
+  bitrate: "192k"
+  silence_sentence_ms: 200
+  silence_paragraph_ms: 500
+
+chunker:
+  max_chars: 200
+  min_chars: 50       # merge chunks shorter than this into the preceding chunk
+
+paths:
+  input_dir: "input"
+  output_dir: "output"
+  cache_dir: "cache"
+  checkpoint_dir: "checkpoints"

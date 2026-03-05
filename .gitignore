@@ -1,0 +1,48 @@
+# ─── Python ───────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# ─── macOS ────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ─── Large model files ────────────────────────────────────
+# F5-TTS / Piper / HuggingFace weights (download separately)
+models/
+!models/.gitkeep
+
+# ─── User-provided audio ──────────────────────────────────
+reference/
+!reference/.gitkeep
+
+# ─── Runtime artifacts ────────────────────────────────────
+cache/
+!cache/.gitkeep
+
+checkpoints/
+!checkpoints/.gitkeep
+
+# ─── Generated output ─────────────────────────────────────
+output/
+!output/.gitkeep
+
+# ─── Binary / audio files ─────────────────────────────────
+*.mp3
+*.wav
+*.flac
+*.onnx
+*.safetensors
+*.npy
+*.pt
+*.bin
+
+# ─── IDE ──────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
